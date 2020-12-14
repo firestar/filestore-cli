@@ -1,8 +1,8 @@
 package com.synload.filestore;
 
-import com.synload.filestore.drivers.StoreDriver;
-import com.synload.filestore.drivers.S3Bucket;
-import com.synload.filestore.drivers.Minio;
+import com.synload.filestore.storagedrivers.StoreDriver;
+import com.synload.filestore.storagedrivers.S3Bucket;
+import com.synload.filestore.storagedrivers.Minio;
 import com.synload.filestore.kafka.Client;
 import com.synload.filestore.kafka.Consumer;
 import com.synload.filestore.structure.*;
@@ -139,7 +139,6 @@ public class FileStoreCLI {
                                 if(shellCommand!=null){
                                     Process process = null;
                                     if (isWindows) {
-
                                         process = Runtime.getRuntime().exec(String.format("powershell.exe \'\"%s\" %s\'", shellCommand,path));
                                     }else{
                                         process = Runtime.getRuntime().exec(String.format("%s %s",shellCommand,path));

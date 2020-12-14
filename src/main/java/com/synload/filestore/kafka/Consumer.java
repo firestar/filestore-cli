@@ -59,7 +59,7 @@ public class Consumer {
         try {
             consumer = new KafkaConsumer<>(properties);
             consumer.subscribe(Arrays.asList(topicName));
-            consumer.poll(Duration.ofMillis(500));
+            consumer.poll(Duration.ofMillis(1000));
             for (Map.Entry<TopicPartition, Long> entry : consumer.endOffsets(consumer.assignment()).entrySet()) {
                 offset = entry.getValue();
             }
@@ -68,13 +68,16 @@ public class Consumer {
         } finally {
             consumer.close();
         }
+        if(offset==null){
+            System.out.println("Error offset of changes topic not found.");
+            System.exit(1);
+        }
         return offset;
     }
 
     public void listen(String topicName, long offset, ChangeDetection changeDetection){
         Properties properties = new Properties();
         properties.putAll(this.props);
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG, UUID.randomUUID().toString());
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
         properties.put(ConsumerConfig.FETCH_MAX_BYTES_CONFIG, 78643200);
         KafkaConsumer<Long, String> consumer = null;

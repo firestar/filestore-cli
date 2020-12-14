@@ -1,5 +1,6 @@
-package com.synload.filestore.drivers;
+package com.synload.filestore.storagedrivers;
 
+import com.synload.filestore.structure.Folder;
 import com.synload.filestore.utils.StringUtils;
 import io.minio.*;
 import io.minio.errors.*;
@@ -79,5 +80,10 @@ public class Minio implements StoreDriver {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Folder folder(String path) {
+        return null;
     }
 }

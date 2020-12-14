@@ -1,4 +1,4 @@
-package com.synload.filestore.drivers;
+package com.synload.filestore.storagedrivers;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -12,10 +12,12 @@ import com.amazonaws.services.s3.model.GetObjectMetadataRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.synload.filestore.drivers.StoreDriver;
+import com.synload.filestore.structure.Folder;
 import com.synload.filestore.utils.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.net.URI;
 
 public class S3Bucket implements StoreDriver {
     String bucket;
@@ -119,5 +121,10 @@ public class S3Bucket implements StoreDriver {
         }else{
             System.out.println("File exists, skipping: " + hashPath);
         }
+    }
+
+    @Override
+    public Folder folder(String path) {
+        return null;
     }
 }
